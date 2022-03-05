@@ -24,18 +24,18 @@ and:
 module FooBar where
 ```
 
-##### step one: fork hnix repo
+#### step one: fork hnix repo
 
 Fork `hnix` repo to have a copy of the nix configuration you'll be able to change when needed. It's recommended to adjust `sources.nix` file.
 
-##### step two: install the fork in monorepo
+#### step two: install the fork in monorepo
 
 ```bash
 git add remote nix <your_fork_ssh_url>
-git subtree pull --prefix nix nix <main_branch_of_your_fork>
+git subtree add --prefix nix nix <main_branch_of_your_fork> --squash
 ```
 
-##### step three: add nix-shell configuration
+#### step three: add nix-shell configuration
 
 `shell.nix` file:
 
@@ -43,7 +43,7 @@ git subtree pull --prefix nix nix <main_branch_of_your_fork>
 import ./nix/shell.nix { name = "foobar"; }
 ```
 
-##### [optional] step four: apply direnv config
+#### [optional] step four: apply direnv config
 
 `.envrc` file:
 
