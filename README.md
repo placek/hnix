@@ -31,7 +31,7 @@ Fork `hnix` repo to have a copy of the nix configuration you'll be able to chang
 #### step two: install the fork in monorepo
 
 ```bash
-git add remote nix <your_fork_ssh_url>
+git remote add nix <your_fork_ssh_url>
 git subtree add --prefix nix nix <main_branch_of_your_fork> --squash
 ```
 
