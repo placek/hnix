@@ -1,7 +1,7 @@
 {
   nixpkgs = builtins.fetchGit {
     url     = "https://github.com/NixOS/nixpkgs.git";
-    rev     = "7e9b0dff974c89e070da1ad85713ff3c20b0ca97";
+    rev     = "a1a6472993e44c44c437f6b5004e53289bc8399c";
     ref     = "refs/tags/21.11";
     allRefs = true;
   };
