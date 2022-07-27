@@ -40,7 +40,18 @@ git subtree add --prefix nix nix <main_branch_of_your_fork> --squash
 `shell.nix` file:
 
 ```nix
-import ./nix/shell.nix { name = "foobar"; }
+import ./nix/shell.nix {
+  name = "foobar";
+}
+```
+
+If you want to define more tools:
+
+```nix
+import ./nix/shell.nix {
+  name = "foobar";
+  devTools = { pkgs }: [ gawk ];
+}
 ```
 
 #### [optional] step four: apply direnv config
