@@ -1,12 +1,15 @@
 # hnix
 
-The simplest configuration for pinning nixpkgs over caba2nix.
+Dummy, no-brainer configuration for pinning nixpkgs over caba2nix
+for haskell startups.
 
 ### HowTo
 
-Assuming you have a haskell project initialized in the monorepo, you can follow the steps below.
+Assuming you have a haskell project initialized in the monorepo, you can follow
+the steps below.
 
-Minimal requirements for the setup is to have a cabal file and haskell module, like:
+Minimal requirements for the setup is to have a cabal file and haskell module,
+like:
 
 ```cabal
 cabal-version: 2.4
@@ -24,20 +27,16 @@ and:
 module FooBar where
 ```
 
-#### step one: fork hnix repo
+#### step one: install the hnix in monorepo
 
-Fork `hnix` repo to have a copy of the nix configuration you'll be able to change when needed. It's recommended to adjust `sources.nix` file.
-
-#### step two: install the fork in monorepo
-
-```bash
-git remote add nix <your_fork_ssh_url>
-git subtree add --prefix nix nix <main_branch_of_your_fork> --squash
+```sh
+git remote add nix https://github.com/placek/hnix.git
+git subtree add --prefix nix nix master--squash
 ```
 
-#### step three: add nix-shell configuration
+#### step two: add nix-shell configuration
 
-`shell.nix` file:
+Create a `shell.nix` file:
 
 ```nix
 import ./nix/shell.nix {
@@ -45,25 +44,33 @@ import ./nix/shell.nix {
 }
 ```
 
-If you want to define more tools:
+If you want to define more tools to be used:
 
 ```nix
 import ./nix/shell.nix {
   name = "foobar";
-  devTools = { pkgs }: [ gawk ];
+  devTools = { pkgs }: [
+    gawk # add gnu awk
+  ];
 }
 ```
 
-#### [optional] step four: apply direnv config
+#### [optional] step three: pin nix sources to exact revision
 
-`.envrc` file:
+To pin souces to one specific revision add `sources.json` file and place there
+some details about the nixpkgs version, like:
 
-```bash
-use nix
+```json
+{
+  "url": "https://github.com/NixOS/nixpkgs.git",
+  "rev": "a1a6472993e44c44c437f6b5004e53289bc8399c",
+  "ref": "refs/tags/21.11",
+  "allRefs": true
+}
 ```
 
-After setting the `.envrc` file allow the repo root to be served with direnv:
+#### [optional] step five: apply direnv config
 
-```bash
-direnv allow .
+```sh
+echo "use nix" > .envrc && direnv allow
 ```
