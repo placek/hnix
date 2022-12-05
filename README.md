@@ -31,7 +31,7 @@ module FooBar where
 
 ```sh
 git remote add nix https://github.com/placek/hnix.git
-git subtree add --prefix nix nix master--squash
+git subtree add --prefix nix nix master --squash
 ```
 
 #### step two: add nix-shell configuration
@@ -49,7 +49,7 @@ If you want to define more tools to be used:
 ```nix
 import ./nix/shell.nix {
   name = "foobar";
-  devTools = { pkgs }: [
+  devTools = { pkgs }: with pkgs; [
     gawk # add gnu awk
   ];
 }
